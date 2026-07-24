@@ -1,0 +1,22 @@
+package Exception;
+
+public class exceptionDemo6 {
+    public static void main(String[] args) throws ConfigNotFoundException{
+        String result=loadComfong("");
+        System.out.println(result);
+    }
+
+    private static String loadComfong(String path) throws  ConfigNotFoundException{
+        if(path == null || path.isEmpty()) {
+            throw new ConfigNotFoundException("配置文件路径为空！");
+        }
+        return "读取成功：" + path;
+    }
+}
+class ConfigNotFoundException extends Exception{
+      public ConfigNotFoundException(String message) {
+        super(message);
+    }
+}
+
+

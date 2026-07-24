@@ -1,0 +1,60 @@
+package Exception;
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public class exceptionDemo5 {
+    public static void main(String[] args) {
+        //自定义异常
+        Scanner scanner = new Scanner(System.in);
+
+        //name
+        while (true) {
+            System.out.println("Enter your name");
+            try {
+                String name = checkName(scanner.nextLine());
+                break;
+            } catch (NameTooShortException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        //age
+        int age;
+        while (true) {
+            System.out.println("Enter your age");
+            try {
+                age = checkAge(scanner.nextInt());
+                break;
+            }catch (InputMismatchException e) {
+                System.out.println("请输入数字");
+                scanner.nextLine();
+            }
+            catch (AgeOutOfRangeException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    private static String checkName(String name) {
+        if (name.length() < 3 || name.length() > 10) {
+            throw new NameTooShortException("姓名长度要在3~10之间，你录的是「" + name + "」");
+        }
+        return name;
+    }
+    private static int checkAge(int age) {
+        if (age < 0 || age > 120) {
+            throw new AgeOutOfRangeException("年龄要在0~120之间，你录的是「" + age + "」");
+        }
+        return age;
+    }
+}
+class NameTooShortException extends RuntimeException {
+    public NameTooShortException(String message) {
+        super(message);
+    }
+}
+class AgeOutOfRangeException extends RuntimeException {
+    public AgeOutOfRangeException(String message) {
+        super(message);
+    }
+}
